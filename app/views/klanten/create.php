@@ -13,31 +13,31 @@
 <form action="<?= URLROOT; ?>/klanten/create" method="post">
   <div class="mb-3">
          <label for="naam">Naam</label>
-         <input type="text" class="form-control" id="naam" name="naam" value="<?= $data['naam']; ?>">
+         <input type="text" class="form-control" id="naam" name="naam" required value="<?= $data['naam']; ?>">
      </div>
      <div class="form-group">
          <label for="adres">Adres</label>
-         <input type="text" class="form-control" id="adres" name="adres" value="<?= $data['adres']; ?>">
+         <input type="text" class="form-control" id="adres" name="adres" required value="<?= $data['adres']; ?>">
      </div>
      <div class="form-group">
          <label for="emailadres">Emailadres</label>
-         <input type="text" class="form-control" id="emailadres" name="emailadres" value="<?= $data['emailadres']; ?>">
+         <input type="text" class="form-control" id="emailadres" name="emailadres" required value="<?= $data['emailadres']; ?>">
      </div>
      <div class="form-group">
          <label for="telefoonnummer">Telefoonnummer</label>
-         <input type="text" class="form-control" id="telefoonnummer" name="telefoonnummer" value="<?= $data['telefoonnummer']; ?>">
+         <input type="text" class="form-control" id="telefoonnummer" name="telefoonnummer" required value="<?= $data['telefoonnummer']; ?>">
      </div>
      <div class="form-group">
          <label for="AantalKinderen">Aantal Kinderen</label>
-         <input type="number" class="form-control" id="AantalKinderen" name="AantalKinderen" value="<?= $data['AantalKinderen']; ?>">
+         <input type="number" class="form-control" id="AantalKinderen" name="AantalKinderen" required value="<?= $data['AantalKinderen']; ?>">
      </div>
      <div class="form-group">
          <label for="AantalVolwassenen">Aantal Volwassenen</label>
-         <input type="number" class="form-control" id="AantalVolwassenen" name="AantalVolwassenen" value="<?= $data['AantalVolwassenen']; ?>">
+         <input type="number" class="form-control" id="AantalVolwassenen" name="AantalVolwassenen" required value="<?= $data['AantalVolwassenen']; ?>">
      </div>
      <div class="form-group">
          <label for="AantalBaby">Aantal Baby</label>
-         <input type="number" class="form-control" id="AantalBaby" name="AantalBaby" value="<?= $data['AantalBaby']; ?>">
+         <input type="number" class="form-control" id="AantalBaby" name="AantalBaby" required value="<?= $data['AantalBaby']; ?>">
      </div>
      <br> 
      
