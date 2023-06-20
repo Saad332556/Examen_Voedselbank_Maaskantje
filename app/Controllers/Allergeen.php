@@ -70,7 +70,7 @@ class Allergeen extends BaseController
                     $this->setFlashMessage('success', $successMessage);
     
                     // Redirect to the index Sollicitatie view.
-                    header("refresh:$this->delay; url=" . URLROOT . '/Allergeen/index');
+                    header("refresh:$this->delay; url=" . URLROOT . '/Allergeen/index' . $e);
                     exit;
                 } else {
                     // Stay in the update Sollicitatie view.
@@ -130,11 +130,11 @@ class Allergeen extends BaseController
         }
     }
 
-    public function delete(int $klantId, int $allergeenId)
+    public function delete(int $id)
     {
         try {
             // Check whether the delete request has been processed.
-            if ($this->AllergeenModel->DeleteAllergie($klantId, $allergeenId)) {
+            if ($this->AllergeenModel->DeleteAllergie($id)) {
                 // Redirect to the index Allergeen view.
                 header("refresh:$this->delay; url=" . URLROOT . '/Allergeen/index');
             } else {

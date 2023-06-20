@@ -19,7 +19,7 @@
             <th>Specifieke wensen</th>
             <th>Details Allergeen</th>
             <th>Verwijderen</th>
-
+df
         </tr>
     </thead>
     <tbody>
