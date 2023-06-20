@@ -1,13 +1,6 @@
-<?php
-    require_once APPROOT . '/Views/Includes/header.php';
-?>
+<?php require_once APPROOT . '/Views/Includes/header.php'; ?>
 
-<!-- <div>
-    <?php
 
-        $Leverancier = $data;
-    ?>    
-</div> -->
 
 <div class="container container-mvckdemo">
     <div class="wrapper-mvckdemo">
@@ -27,7 +20,7 @@
 
                 <div class="form-group row">
                     <label class="col-sm-3 control-label">bedrijfsnaam</label>
-                    <input type="text " disabled value="<?= $data->bedrijfsnaam ?>"></input>
+                    <input type="text" disabled value="<?= $data->bedrijfsnaam ?>"></input>
                 </div>
 
                 <div class="form-group row">
@@ -51,14 +44,12 @@
                 </div>
 
                 <div class="form-group row float-lg-right">
-                    <a class="btn btn-primary mr-1" href="<?php URLROOT; ?>/Leverancier/index">Back</a>
-                    <a class="btn btn-warning" href="<?php URLROOT; ?>/Leverancier/update/<?= $data->id ?>">Update</a>
+                    <a class="btn btn-primary mr-1" href="<?= URLROOT; ?>/Leverancier/index">Back</a>
+                    <a class="btn btn-warning" href="<?= URLROOT; ?>/Leverancier/update/<?= $data->id ?>">Update</a>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<?php
-    require_once APPROOT . '/Views/Includes/footer.php';
-?>
+<?php require_once APPROOT . '/Views/Includes/footer.php'; ?>

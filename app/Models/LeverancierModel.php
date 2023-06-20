@@ -95,6 +95,77 @@ class LeverancierModel
                 }
        }
 
+       public function createLeverancier(LeverancierEntityViewModel $newLeverancier) : bool
+        {
+            try
+            {
+                // Create new Leverancier in database.
+                $spQuery = "EXEC [dbo].[spcreateLeverancier]   @voornaam			= :voornaam			
+                                                               ,@achternaam		    = :achternaam	
+                                                               ,@bedrijfsnaam	= :bedrijfsnaam	
+                                                               ,@adres		= :adres		
+                                                               ,@contactpersoon		= :contactpersoon		
+                                                               ,@emailadres			    = :emailadres			
+                                                               ,@telefoonnummer		    = :telefoonnummer";			
+                
+                $this->Db->query($spQuery);
+
+                // Bind values
+                $this->Db->bind(':voornaam', $newLeverancier->Voornaam);
+                $this->Db->bind(':achternaam', $newLeverancier->Achternaam);
+                $this->Db->bind(':sollicitantnummer', $newLeverancier->bedrijfsnaam);
+                $this->Db->bind(':bedrijfnaam', $newLeverancier->adres);
+                $this->Db->bind(':bedrijfcode', $newLeverancier->contactpersoon);
+                $this->Db->bind(':straat', $newLeverancier->emailadres);
+                $this->Db->bind(':huisnummer', $newLeverancier->telefoonnummer);
+               
+                // Execute function
+                if ($this->Db->execute()) 
+                {
+                    error_log("INFO : New Leverancier has been created in class LeverancierModel method createLeverancier!", 0);
+                    return true;
+                } 
+                else 
+                {
+                    error_log("ERROR : New Leverancier has been not created in class LeverancierModel method createLeverancier!", 0);
+                    return false;
+                }
+            }
+            catch(PDOException $ex) 
+            {
+                error_log("ERROR : Failed to create new Leverancier in database in class LeverancierModel method createLeverancier!", 0);
+                die('ERROR : Failed to create new Leverancier in database in class LeverancierModel method createLeverancier '. $ex->getMessage());
+            }
+        }
+
+       public function deleteLeverancierUseSPMySql(int $id) : bool
+        {
+            try
+            {
+                // Delete the selected Leverancier from database. 
+                $spQuery = "CALL spDeleteLeverancier(:id)"; 
+
+                $this->Db->query($spQuery);
+                $this->Db->bind(':id', $id);
+
+                // Execute function
+                if ($this->Db->execute()) 
+                {
+                    error_log("INFO : Selected Leverancier has been deleted in class LeverancierModel method deleteLeverancier!", 0);
+                    return true;
+                } 
+                else 
+                {
+                    error_log("ERROR : Selected Leverancier has been not deleted in class LeverancierModel method deleteLeverancier!", 0);
+                    return false;
+                }
+            }
+            catch(PDOException $ex)
+            {
+                error_log("ERROR : Failed to delete selected Leverancier in database in class LeverancierModel method deleteLeverancier!", 0);
+                die('ERROR : Failed to delete selected Leverancier in database in class LeverancierModel method deleteLeverancier '. $ex->getMessage());
+            }
+        }
 
 
 }

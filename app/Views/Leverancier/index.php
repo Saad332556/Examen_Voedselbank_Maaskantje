@@ -30,8 +30,8 @@
                 <td class="float-right">
                     <a class="btn btn-info" href="<?php URLROOT; ?>/Leverancier/details/<?= $Leverancier->Id ?>"><i
                             class="fab fa-readme" title="details Leverancier"></i></a>
-                    <a class="btn btn-danger" href="<?php URLROOT; ?>/Leverancier/delete/"><i class="fab fa-trash"
-                            title="delete Leverancier"></i></a>
+                    <a class="btn btn-danger" href="<?php URLROOT; ?>/Leverancier/delete/<?= $Leverancier->Id ?>"><i
+                            class="fab fa-trash" title="delete Leverancier"></i></a>
                     <!-- <a class="btndelete btn btn-danger" href="javascript:void(0)"><i class="fab fa-trash" title="delete company"></i></a>  -->
                 </td>
             </tr>

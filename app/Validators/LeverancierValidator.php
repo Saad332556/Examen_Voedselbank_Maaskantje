@@ -74,7 +74,7 @@
                 {
                     $data->contactpersoonError = 'contactpersoon is onjuiste tekst formaat.';
                 } 
-                elseif(strlen($data->contactpersoon) > 10)
+                elseif(strlen($data->contactpersoon) > 200)
                 {
                     $data->contactpersoonError = 'contactpersoon is te lang!.';
                 }
