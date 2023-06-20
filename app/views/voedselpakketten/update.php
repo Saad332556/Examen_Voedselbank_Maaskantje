@@ -5,7 +5,7 @@
         <tbody>
             <tr>
                 <td>Aantal producten:</td>
-                <td><input type="text" name="aantal" id="aantal" value="<?= $data['aantal']; ?>"></td>
+                <td><input type="text" name="aantal" id="aantal" required value="<?= $data['aantal']; ?>"></td>
             </tr>
             <tr>
                 <td><input type="hidden" name="id" id="id" value="<?= $data['id']; ?>"></td>
