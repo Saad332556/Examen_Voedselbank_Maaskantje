@@ -29,7 +29,7 @@
                             <a class="btn btn-info" href="<?php URLROOT; ?>/Contact/details/<?= $dashboard->Id ?>"><i class="fab fa-readme" title="details sollicitatie"></i></a>
                         </td>
 
-
+a
                     </tr>
         <?php }?>
     </tbody>
