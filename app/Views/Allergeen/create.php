@@ -27,11 +27,12 @@
                     <button type="submit" class="btn btn-success">Save</button>
                 </div>
 
-                1 = gluten
-                2 = gluten
-                3 = gluten
-                4 = gluten
-                git add
+                1 = Gluten
+                2 = Pinda
+                3 = Schaaldieren
+                4 = Hazelnoten
+                5 = Lactose
+
             </form>
         </div>
     </div>
