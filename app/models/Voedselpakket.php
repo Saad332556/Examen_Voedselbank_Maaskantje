@@ -59,19 +59,23 @@ class Voedselpakket
 
     public function createVoedselpakket($post)
     {
+        $this->db->query("INSERT INTO Klant (naam) 
+                          VALUES (:naam)");
 
-        $this->db->query("INSERT INTO Klant (naam) VALUES (:naam)");
         $this->db->bind(':naam', $post['naam'], PDO::PARAM_STR);
         $this->db->execute();
 
         $this->db->query("INSERT INTO Voedselpakket (klant_id, pakketnummer, datum_samenstelling, datum_uitgifte)
                           VALUES (LAST_INSERT_ID(), :pakketnummer, :datum_samenstelling, :datum_uitgifte)");
+
         $this->db->bind(':pakketnummer', $post['pakketnummer'], PDO::PARAM_INT);
         $this->db->bind(':datum_samenstelling', $post['datum_samenstelling'], PDO::PARAM_STR);
         $this->db->bind(':datum_uitgifte', $post['datum_uitgifte'], PDO::PARAM_STR);
         $this->db->execute();
 
-        $this->db->query("INSERT INTO Product (voedselpakket_id, aantal) VALUES (LAST_INSERT_ID(), :aantal)");
+        $this->db->query("INSERT INTO Product (voedselpakket_id, aantal) 
+                          VALUES (LAST_INSERT_ID(), :aantal)");
+
         $this->db->bind(':aantal', $post['aantal'], PDO::PARAM_INT);
         $this->db->execute();
 
