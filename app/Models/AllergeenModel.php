@@ -99,15 +99,17 @@ class AllergeenModel
             die('ERROR: Failed to create new Allergeen in database in class AllergeenModel method createCreateAllergiel ' . $ex->getMessage());
         }
     }
-    public function DeleteAllergie(int $klantId, int $allergeenId): bool
+
+
+    
+    public function DeleteAllergie(int $id): bool
     {
         try {
             // Delete the selected Allergie from the database using the stored procedure.
-            $spQuery = "CALL spDeleteAllergie(:p_klant_id, :p_allergeen_id)";
+            $spQuery = "CALL spDeleteProductAllergeenMapping(:mapping_id)";
             
             $this->Db->query($spQuery);
-            $this->Db->bind(':p_klant_id', $klantId);
-            $this->Db->bind(':p_allergeen_id', $allergeenId);
+            $this->Db->bind(':mapping_id', $id);
     
             // Execute the stored procedure
             if ($this->Db->execute()) {
@@ -122,6 +124,7 @@ class AllergeenModel
             die('ERROR: Failed to delete the selected Allergie in the database in class AllergeenModel method DeleteAllergie ' . $ex->getMessage());
         }
     }
+    
     
     
     
