@@ -45,11 +45,11 @@ class Klanten extends Controller
         $klant = $this->klantModel->getKlantById($id);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {  
             $POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            var_dump($POST);
-            
-            header("Refresh: 3; URL=" . URLROOT . "/klanten/index");
+           $update = $this->klantModel->wijzigKlant($POST);
+            echo "<p>De klant is gewijzigd</p>";
+           header("Refresh: 3; URL=" . URLROOT . "/klanten/index");
         }else{
-
+     
       
         $data = [
             'id' => $klant->id,
@@ -65,43 +65,40 @@ class Klanten extends Controller
     }
 
  }
-
+    
     public function verwijder($id = null)
     {
         $klant = $this->klantModel->getKlantById($id);
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->klantModel->verwijderKlant($id);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {  
+            $POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $delete = $this->klantModel->verwijderKlant($POST);
+            echo "<p>De klant is verwijderd</p>";
             header("Refresh: 3; URL=" . URLROOT . "/klanten/index");
-        } else {
-            $data = [
-                'id' => $klant->id,
-                'naam' => $klant->naam,
-                'adres' => $klant->adres,
-                'emailadres' => $klant->emailadres,
-                'telefoonnummer' => $klant->telefoonnummer,
-                'AantalKinderen' => $klant->AantalKinderen,
-                'AantalVolwassenen' => $klant->AantalVolwassenen,
-                'AantalBaby' => $klant->AantalBaby
-            ];
-            $this->view('klanten/verwijder', $data);
-        }
+        }else{
+        $data = [
+            'id' => $klant->id,
+            'naam' => $klant->naam,
+            'adres' => $klant->adres,
+            'emailadres' => $klant->emailadres,
+            'telefoonnummer' => $klant->telefoonnummer,
+            'AantalKinderen' => $klant->AantalKinderen,
+            'AantalVolwassenen' => $klant->AantalVolwassenen,
+            'AantalBaby' => $klant->AantalBaby
+        ];
+        $this->view('klanten/verwijder', $data);
+    }
     }
 
     public function create()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-            $data = [
-                'naam' => $POST['naam'],
-                'adres' => $POST['adres'],
-                'emailadres' => $POST['emailadres'],
-                'telefoonnummer' => $POST['telefoonnummer'],
-                'AantalKinderen' => $POST['AantalKinderen'],
-                'AantalVolwassenen' => $POST['AantalVolwassenen'],
-                'AantalBaby' => $POST['AantalBaby']
-            ];
-            $this->klantModel->createKlant($data);
-            header("Refresh: 3; URL=" . URLROOT . "/klanten/index");
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {  
+                $POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+               
+                $create = $this->klantModel->voegKlantToe($POST);
+                echo "<p>De klant is toegevoegd</p>";
+    
+               header("Refresh: 3; URL=" . URLROOT . "/klanten/index");
+    
         } else {
             $data = [
                 'naam' => '',
@@ -113,7 +110,7 @@ class Klanten extends Controller
                 'AantalBaby' => ''
             ];
             $this->view('klanten/create', $data);
-}
+        }
 
     }
 }

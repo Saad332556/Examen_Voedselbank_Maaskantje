@@ -37,7 +37,7 @@
      </div>
      <div class="form-group">
          <label for="AantalBaby">Aantal Baby</label>
-         <input type="number" class="form-control" id="AantalBaby" name="AantalBaby" required value="<?= $data['AantalBaby']; ?>">
+         <input type="number" class="form-control" id="AantalBaby" name="AantalBaby" required  value="<?= $data['AantalBaby']; ?>">
      </div>
      <br> 
      
