@@ -1,4 +1,5 @@
-<?
+<?php
+
 class LeverancierModel
 {
     private Database $Db;
@@ -8,23 +9,44 @@ class LeverancierModel
         $this->Db = $db;
     }
 
-    public function getLeveranciers() : array
+    public function GetLeveranciers()
+    {
+        try{
+        $getLeveranciers = "CALL spGetLeveranciers()";
+
+        $this->Db->query($getLeveranciers);
+
+        $result = $this->Db->resultSet();
+
+        return $result ?? [];
+    }
+    catch(PDOException $ex) 
+    {
+        error_log("ERROR : Failed to get all Leveranciers from database in class LeverancierModel method getLeveranciersUseSp!", 0);
+        die('ERROR : Failed to get all Leveranciers from database in class LeverancierModel method getLeveranciersUseSp! '. $ex->getMessage());
+    }
+    }
+
+    public function GetLeveranciersById(int $id) 
+    {
+        try
         {
-            try
-            {
-                // Use sql script to fetch all Sollicitaties from Sollicitatie database.
-                $getAllSollicitatiesQuery = "CALL spGetSollicitaties()";
+            $getLeveranciersById = "CALL spGetLeverancierById(:id)";
 
-                $this->Db->query($getAllSollicitatiesQuery);
+            $this->Db->query($getLeveranciersById);
+            
+            $this->Db->bind(':id', $id);
+            
+            $result = $this->Db->single();
 
-                $result = $this->Db->resultSet();
-
-                return $result ?? [];
-            }
-            catch(PDOException $ex) 
-            {
-                error_log("ERROR : Failed to get all Sollicitaties from database in class SollicitatieModel method getSollicitatiesUseSp!", 0);
-                die('ERROR : Failed to get all Sollicitaties from database in class SollicitatieModel method getSollicitatiesUseSp! '. $ex->getMessage());
-            }
+            $LeverancierObj = $result;
+                
+            return $LeverancierObj;
         }
+        catch(PDOException $ex)
+            {
+                error_log("ERROR : Failed to get Leverancier by id from database in class LeverancierModel method getLeverancierByIdUseSP!", 0);
+                die('ERROR : Failed to get Leverancier by id from database in class LeverancierModel method getLeverancierByIdUseSP! '. $ex->getMessage());
+            }
+    }
 }
