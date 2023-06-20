@@ -21,7 +21,6 @@ class Voedselpakketten extends Controller
         foreach ($records as $items)
         {
             $rows .= "<tr>
-                        <td>$items->id</td>
                         <td>$items->aantal</td>
                         <td>$items->naam</td>
                         <td>$items->pakketnummer</td>
@@ -59,16 +58,12 @@ class Voedselpakketten extends Controller
             header("Location: " . URLROOT . "/voedselpakketten/index");
         }
 
-        $record = $this->voedselpakketModel->getVoedselpakketten($id);
+        $record = $this->voedselpakketModel->getVoedselpakketById($id);
 
         $data = [
             'title' => 'Update voedselpakket',
             'id' => $record->id,
-            'aantal' => $record->aantal,
-            'naam' => $record->naam,
-            'pakketnummer' => $record->pakketnummer,
-            'datum_samenstelling' => $record->datum_samenstelling,
-            'datum_uitgifte' => $record->datum_uitgifte
+            'aantal' => $record->aantal
         ]; 
         $this->view('voedselpakketten/update', $data);
     }
