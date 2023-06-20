@@ -4,13 +4,13 @@
      */
     class LeverancierEntityViewModel
     {
-        private string $Id;       
+        private string $id;       
         
-        private string $Voornaam;    
-        private string $VoornaamError;
+        private string $voornaam;    
+        private string $voornaamError;
 
-        private string $Achternaam;     
-        private string $AchternaamError;
+        private string $achternaam;     
+        private string $achternaamError;
 
         private string $bedrijfsnaam;    
         private string $bedrijfsnaamError;

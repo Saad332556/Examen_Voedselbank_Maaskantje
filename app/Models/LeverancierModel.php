@@ -50,7 +50,7 @@ class LeverancierModel
             }
     }
 
-    public function updateLeverancierUseSPMySql($selectedLeverancier) : bool
+    public function updateLeverancierUseSPMySql(LeverancierEntityViewModel $selectedLeverancier) : bool
         {  
             try 
             {

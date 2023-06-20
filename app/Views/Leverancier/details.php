@@ -52,7 +52,7 @@
 
                 <div class="form-group row float-lg-right">
                     <a class="btn btn-primary mr-1" href="<?php URLROOT; ?>/Leverancier/index">Back</a>
-                    <a class="btn btn-warning" href="<?php URLROOT; ?>/Leverancier/update/">Update</a>
+                    <a class="btn btn-warning" href="<?php URLROOT; ?>/Leverancier/update/<?= $data->id ?>">Update</a>
                 </div>
             </form>
         </div>

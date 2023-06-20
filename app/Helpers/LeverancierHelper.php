@@ -9,13 +9,13 @@
         {
             $newEmptyLeverancier = new LeverancierEntityViewModel();
 
-            $newEmptyLeverancier->Id = 0;
+            $newEmptyLeverancier->id = 0;
 
-            $newEmptyLeverancier->Voornaam = '';
-            $newEmptyLeverancier->VoornaamError = '';
+            $newEmptyLeverancier->voornaam = '';
+            $newEmptyLeverancier->voornaamError = '';
 
-            $newEmptyLeverancier->Achternaam = '';
-            $newEmptyLeverancier->AchternaamError = '';
+            $newEmptyLeverancier->achternaam = '';
+            $newEmptyLeverancier->achternaamError = '';
 
             $newEmptyLeverancier->bedrijfsnaam = 0;
             $newEmptyLeverancier->bedrijfsnaamError ='';
@@ -44,13 +44,13 @@
         {
             $modifiedLeverancier                               = new LeverancierEntityViewModel();
 
-            $modifiedLeverancier->Id                           = $selectedLeverancier->Id;
+            $modifiedLeverancier->id                           = $selectedLeverancier->id;
 
-            $modifiedLeverancier->Voornaam                     = $selectedLeverancier->Voornaam;
-            $modifiedLeverancier->VoornaamError                = '';
+            $modifiedLeverancier->voornaam                     = $selectedLeverancier->voornaam;
+            $modifiedLeverancier->voornaamError                = '';
 
-            $modifiedLeverancier->Achternaam                   = $selectedLeverancier->Achternaam;
-            $modifiedLeverancier->AchternaamError              = '';
+            $modifiedLeverancier->achternaam                   = $selectedLeverancier->achternaam;
+            $modifiedLeverancier->achternaamError              = '';
 
             $modifiedLeverancier->bedrijfsnaam            = $selectedLeverancier->bedrijfsnaam;
             $modifiedLeverancier->bedrijfsnaamError       = '';
@@ -82,14 +82,14 @@
             
             if($methodType == 'update')
             {
-                $Leverancier->Id = isset($inputPost['Id']) ? $inputPost['Id']: 0;
+                $Leverancier->id = isset($inputPost['id']) ? $inputPost['id']: 0;
             }
             
-            $Leverancier->Voornaam                     = trim($inputPost['Voornaam']);
-            $Leverancier->VoornaamError                = '';
+            $Leverancier->voornaam                     = trim($inputPost['voornaam']);
+            $Leverancier->voornaamError                = '';
 
-            $Leverancier->Achternaam                   = trim($inputPost['Achternaam']);
-            $Leverancier->AchternaamError              = '';
+            $Leverancier->achternaam                   = trim($inputPost['achternaam']);
+            $Leverancier->achternaamError              = '';
 
             $Leverancier->bedrijfsnaam            = $inputPost['bedrijfsnaam'];
             $Leverancier->bedrijfsnaamError       = '';

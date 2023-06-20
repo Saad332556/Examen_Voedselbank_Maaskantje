@@ -37,53 +37,44 @@ class Leverancier extends BaseController
             }
         }
 
-        public function update(int $id)
-        {
-            if($_SERVER['REQUEST_METHOD'] == 'GET')
-            {
-                // Get the selected Leverancier row from database by Id.
-                $modifiedLeverancier = $this->LeverancierModel->getLeverancierById($id);
+    public function update($id)
+{
+    if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+        // Get the selected Leverancier row from the database by id.
+        $modifiedLeverancier = $this->LeverancierModel->getLeveranciersById($id);
 
-                // $modifiedLeverancier = $this->LeverancierModel->getLeverancierByIdUseSPSqlServer($id);
+        // Map the selected Leverancier row to an object.
+        $data = LeverancierHelper::mapLeverancierRowToObject($modifiedLeverancier);
 
-                // Map the selected Leverancier row to object.
-                $data = leverancierHelper::mapLeverancierRowToObject($modifiedLeverancier);
+        // Send the modified Leverancier object to the update view.
+        $this->view('Leverancier/update', $data);
+    } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $_POST = filter_input_array(INPUT_POST);
 
-                // Send the modified Leverancier object to view Leverancier/update.
-                $this->view('Leverancier/update', $data);
-            }
-            else //elseif($_SERVER['REQUEST_METHOD'] == 'POST')
-            {
-                $_POST = filter_input_array(INPUT_POST);
+        // Get the input values of the modified Leverancier fields from the update view.
+        $data = LeverancierHelper::setInputLeverancierFieldsToLeverancierObject($_POST, 'update');
 
-                // Get the input values of the Leverancier modified fields from the update view.
-                $data = leverancierHelper::setInputLeverancierFieldsToLeverancierObject($_POST, 'update');
+        // Set the ID in the data object.
+        $data->Id = $id;
 
-                // Valide all the input fields of update method.
-                $isViewValid = LeverancierValidator::validateLeverancierInputFields($data);
+        // Validate all the input fields of the update method.
+        $isViewValid = LeverancierValidator::validateLeverancierInputFields($data);
 
-                // Check whether the update view is valid.
-                // updateLeverancierUseSP($data)
-                if($isViewValid && $this->LeverancierModel->updateLeverancierUseSPMySql($data))
-                //if($isViewValid && $this->LeverancierModel->updateLeverancierUseSPSqlServer($data))
-                {
-                    // Display een info message on company index view.
-                    $this->infoMessage = FormatTextHelper::GetInfoMessage("Selected Leverancier has been modified", EnumTypeMessage::Success);
+        // Check whether the update view is valid.
+        if ($isViewValid && $this->LeverancierModel->updateLeverancierUseSPMySql($data)) {
+            // Display an info message on the company index view.
+            $this->infoMessage = FormatTextHelper::getInfoMessage("Selected Leverancier has been modified", EnumTypeMessage::Success);
 
-                    // Redirect to the index Leverancier view. 
-                    header("refresh:$this->delay; url=" . URLROOT  . '/Leverancier/index' . $this->infoMessage);
-                }
-                else 
-                {
-                    // Display een info message on Leverancier update view.
-                    $this->infoMessage = FormatTextHelper::GetInfoMessage("Selected Leverancier has been not modified", EnumTypeMessage::Error);
+            // Redirect to the index Leverancier view.
+            header("refresh:$this->delay; url=" . URLROOT . '/Leverancier/index' . $this->infoMessage);
+        } else {
+            // Display an info message on the Leverancier update view.
+            $this->infoMessage = FormatTextHelper::getInfoMessage("Selected Leverancier has not been modified", EnumTypeMessage::Error);
 
-                    // Redirect to the update Leverancier view. 
-                    header("refresh:$this->delay; url=" . URLROOT  . '/Leverancier/update' . $this->infoMessage);
-
-                    // Stay in the update Leverancier view.
-                    $this->view('Leverancier/update', $data);
-                }
-            }  
+            // Stay in the update Leverancier view.
+            $this->view('Leverancier/update', $data);
         }
+    }
+}
+
 }
