@@ -25,4 +25,16 @@ class Leverancier extends BaseController
         }
     }
 
+    public function details($Id)
+        {
+            if($_SERVER['REQUEST_METHOD'] == 'GET')
+            {
+                // Fetch selected Sollicitatie by Id from Sollicitatie model.
+                $data = $this->LeverancierModel->GetLeveranciersById($Id);
+
+                // Send the selected Sollicitatie to view Sollicitatie/details.
+                $this->view('Leverancier/details', $data);
+            }
+        }
+
 }
