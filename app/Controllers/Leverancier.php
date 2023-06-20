@@ -52,8 +52,6 @@ class Leverancier extends BaseController
         $this->view('Leverancier/update', $data);
     } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_POST = filter_input_array(INPUT_POST);
-        var_dump($_POST);
-        exit();
 
         // Get the input values of the modified Leverancier fields from the update view.
         $data = LeverancierHelper::setInputLeverancierFieldsToLeverancierObject($_POST, 'update');
