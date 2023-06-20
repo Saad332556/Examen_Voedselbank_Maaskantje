@@ -54,33 +54,33 @@ class Voedselpakketten extends Controller
              */
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-            $this->voedselpakketModel->updateCountry($_POST);
+            $this->voedselpakketModel->updateVoedselpakket($_POST);
 
-            header("Location: " . URLROOT . "/country/index");
+            header("Location: " . URLROOT . "/voedselpakketten/index");
         }
 
-        $record = $this->voedselpakketModel->getCountry($id);
+        $record = $this->voedselpakketModel->getVoedselpakketten($id);
 
         $data = [
-            'title' => 'Update Landen',
-            'Id' => $record->Id,
-            'Name' => $record->Name,
-            'CapitalCity' => $record->CapitalCity,
-            'Continent' => $record->Continent,
-            'Population' => $record->Population
+            'title' => 'Update voedselpakket',
+            'id' => $record->id,
+            'aantal' => $record->aantal,
+            'naam' => $record->naam,
+            'pakketnummer' => $record->pakketnummer,
+            'datum_samenstelling' => $record->datum_samenstelling,
+            'datum_uitgifte' => $record->datum_uitgifte
         ]; 
-        $this->view('countries/update', $data);
+        $this->view('voedselpakketten/update', $data);
     }
 
     public function delete($id)
     {
-        $result = $this->voedselpakketModel->deleteCountry($id);
+        $result = $this->voedselpakketModel->deleteVoedselpakket($id);
         if ($result) {
-            echo "Het record is verwijderd uit de database";
-            header("Refresh: 3; URL=" . URLROOT . "/countries/index");
+            echo "Het record is met success verwijderd";
+            header("Refresh: 3; URL=" . URLROOT . "/voedselpakketten/index");
         } else {
             echo "Internal servererror, het record is niet verwijderd";
-            header("Refresh: 3; URL=" . URLROOT . "/countries/index");
         }
     }
 
@@ -90,20 +90,20 @@ class Voedselpakketten extends Controller
             // $_POST array schoonmaken
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-            $result = $this->voedselpakketModel->createCountry($_POST);
+            $result = $this->voedselpakketModel->createVoedselpakket($_POST);
 
             if ($result) {
                 echo "Het invoeren is gelukt";
-                header("Refresh:3; URL=" . URLROOT . "/countries/index");
+                header("Refresh:3; URL=" . URLROOT . "/voedselpakketten/index");
             } else {
                 echo "Het invoeren is NIET gelukt";
-                header("Refresh:3; URL=" . URLROOT . "/countries/index");
+                header("Refresh:3; URL=" . URLROOT . "/voedselpakketten/index");
             }
         }
 
         $data = [
-            'title' => 'Voeg een nieuw land toe'
+            'title' => 'Voeg een nieuw voedselpakket toe'
         ];
-        $this->view('countries/create', $data);
+        $this->view('voedselpakketten/create', $data);
     }
 }
