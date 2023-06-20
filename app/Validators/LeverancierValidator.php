@@ -46,7 +46,7 @@
                 {
                     $data->BedrijfsnaamError = 'Voer Leverancier nummer in.';
                 }
-                elseif(!is_int($data->Bedrijfsnaam)) 
+                elseif(!is_string($data->Bedrijfsnaam)) 
                 {
                     $data->BedrijfsnaamError = 'Sollicitant nummer is onjuiste tekst formaat.';
                 }
@@ -98,7 +98,7 @@
                 {
                     $data->telefoonnummerError = 'Voer telefoonnummer in.';
                 } 
-                elseif(!is_int($data->telefoonnummer))
+                elseif(!is_string($data->telefoonnummer))
                 {
                     $data->telefoonnummerError = 'telefoonnummer is onjuiste nummer formaat.';
                 }

@@ -1,6 +1,4 @@
-<?php
-    require_once APPROOT . '/Views/Includes/header.php';
-?>
+<?php require_once APPROOT . '/Views/Includes/header.php'; ?>
 
 <div class="container container-mvckdemo">
     <div class="wrapper-mvckdemo">
@@ -12,14 +10,14 @@
 
                 <div class="form-group row">
                     <label class="col-sm-3 control-label">Voornaam *</label>
-                    <input type="text" class="input-field-error-message" name="Voornaam" required="true" maxlength="50"
+                    <input type="text" class="input-field-error-message" name="voornaam" required="true" maxlength="50"
                         value="<?= $data->voornaam ?>">
                     <span class="invalidFeedback"><?= $data->voornaamError ?></span>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-sm-3 control-label">Achternaam *</label>
-                    <input type="text" class="input-field-error-message" name="Achternaam" required="true"
+                    <input type="text" class="input-field-error-message" name="achternaam" required="true"
                         maxlength="50" value="<?= $data->achternaam ?>">
                     <span class="invalidFeedback"><?= $data->achternaamError ?></span>
                 </div>
@@ -68,6 +66,4 @@
     </div>
 </div>
 
-<?php
-    require_once APPROOT . '/Views/Includes/footer.php';
-?>
+<?php require_once APPROOT . '/Views/Includes/footer.php'; ?>

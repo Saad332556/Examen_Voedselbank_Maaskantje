@@ -52,6 +52,8 @@ class Leverancier extends BaseController
         $this->view('Leverancier/update', $data);
     } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_POST = filter_input_array(INPUT_POST);
+        var_dump($_POST);
+        exit();
 
         // Get the input values of the modified Leverancier fields from the update view.
         $data = LeverancierHelper::setInputLeverancierFieldsToLeverancierObject($_POST, 'update');
@@ -63,12 +65,13 @@ class Leverancier extends BaseController
         $isViewValid = LeverancierValidator::validateLeverancierInputFields($data);
 
         // Check whether the update view is valid.
-        if ($isViewValid && $this->LeverancierModel->updateLeverancierUseSPMySql($data)) {
+        if ($isViewValid && $this->LeverancierModel->updateLeverancierUseSPMySql($id, $data)) {
             // Display an info message on the company index view.
             $this->infoMessage = FormatTextHelper::getInfoMessage("Selected Leverancier has been modified", EnumTypeMessage::Success);
 
             // Redirect to the index Leverancier view.
             header("refresh:$this->delay; url=" . URLROOT . '/Leverancier/index' . $this->infoMessage);
+            exit; // Add exit statement to stop execution after redirect.
         } else {
             // Display an info message on the Leverancier update view.
             $this->infoMessage = FormatTextHelper::getInfoMessage("Selected Leverancier has not been modified", EnumTypeMessage::Error);
@@ -78,50 +81,29 @@ class Leverancier extends BaseController
         }
     }
 }
-    public function create()
-        {
-            // Make new empty Leverancier object for create view.
-            $data = LeverancierHelper::createEmptyLeverancierObject();
 
-            if($_SERVER['REQUEST_METHOD'] == 'GET')
-            {
+    public function create()
+    {
+        $data = LeverancierHelper::createEmptyLeverancierObject();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $this->view('Leverancier/create', $data);
+        } else {
+            $_POST = filter_input_array(INPUT_POST);
+            $data = LeverancierHelper::setInputLeverancierFieldsToLeverancierObject($_POST, 'create');
+
+            $isViewValid = LeverancierValidator::validateLeverancierInputFields($data);
+
+            if ($isViewValid && $this->LeverancierModel->createLeverancierUseSPMySql($data)) {
+                $this->infoMessage = FormatTextHelper::GetInfoMessage("New Leverancier has been created", EnumTypeMessage::Success);
+                header("refresh:$this->delay; url=" . URLROOT . '/Leverancier/index' . $this->infoMessage);
+            } else {
+                $this->infoMessage = FormatTextHelper::GetInfoMessage("New Leverancier has not been created", EnumTypeMessage::Error);
+                header("refresh:$this->delay; url=" . URLROOT . '/Leverancier/create' . $this->infoMessage);
                 $this->view('Leverancier/create', $data);
             }
-            else//elseif($_SERVER['REQUEST_METHOD'] == 'POST')
-            {
-                
-                $_POST = filter_input_array(INPUT_POST);
-                // var_dump($_POST);exit;
-
-                // Get the input values of the Leverancier created fields from the create view.
-                $data = LeverancierHelper::setInputLeverancierFieldsToLeverancierObject($_POST, 'create');
-
-                // Valide all the input fields of create method.
-                $isViewValid = LeverancierValidator::validateLeverancierInputFields($data);
-
-                // Check whether the create view is valid.
-                if($isViewValid && $this->LeverancierModel->createLeverancierUseSPMySql($data))
-                //if($isViewValid && $this->LeverancierModel->createLeverancierUseSPSqlServer($data))
-                {
-                    // Display een info message on Leverancier index view.
-                    $this->infoMessage = FormatTextHelper::GetInfoMessage("New Leverancier has been created", EnumTypeMessage::Success);
-
-                    // Redirect to the index Leverancier view. 
-                    header("refresh:$this->delay; url=" . URLROOT  . '/Leverancier/index' . $this->infoMessage);
-                }
-                else 
-                {
-                    // Display een error message on Leverancier create view.
-                    $this->infoMessage = FormatTextHelper::GetInfoMessage("New Leverancier has been not created", EnumTypeMessage::Error);
-
-                    // Redirect to the create Leverancier view. 
-                    header("refresh:$this->delay; url=" . URLROOT  . '/Leverancier/create' . $this->infoMessage);
-
-                    // Stay in the create Leverancier view.
-                    $this->view('Leverancier/update', $data);
-                }
-            }  
         }
+    }
 
 
 public function delete(int $id)
