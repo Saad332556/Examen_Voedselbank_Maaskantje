@@ -13,31 +13,71 @@ class Klanten_d3_saad extends Controller
 
     public function index()
     {
-        $records = $this->klantModel->getKlanten();
-        // var_dump($records);
+        try {
+            $records = $this->klantModel->getKlanten();
+            // var_dump($records);
 
-        $rows = '';
+            $rows = '';
 
-        foreach ($records as $items)
-        {
-            $rows .= "<tr>
-                        <td>$items->Naam</td>
-                        <td>$items->Vertegenwoordiger</td>
-                        <td>$items->Email</td>
-                        <td>$items->Mobiel</td>
-                        <td>$items->Adres</td>
-                        <td>$items->Woonplaats</td>
-                        <td>
-                            <a href='" . URLROOT . "/klanten_3d_saad/update/$items->Id'><img src='../public/img/book.png' width='20' height='20'></a>
-                        </td>
-                      </tr>";
+            foreach ($records as $items)
+            {
+                $rows .= "<tr>
+                            <td>$items->Naam</td>
+                            <td>$items->Vertegenwoordiger</td>
+                            <td>$items->Email</td>
+                            <td>$items->Mobiel</td>
+                            <td>$items->Adres</td>
+                            <td>$items->Woonplaats</td>
+                            <td>
+                                <a href='" . URLROOT . "/klanten_d3_saad/getbyid/$items->Id'><img src='../public/img/book.png' width='20' height='20'></a>
+                            </td>
+                        </tr>";
+            }
+
+            $data = [
+                'title' => "Overzicht Klanten",
+                'rows' => $rows
+            ];
+            $this->view('klanten_d3_saad/index', $data);
+        } catch(Exception $e) {
+            echo "Er is een fout opgetreden: " . $e->getMessage();
+            header("Refresh: 5; URL=" . URLROOT . "/landingpages/index");
         }
+    }
 
-        $data = [
-            'title' => "Overzicht Klanten",
-            'rows' => $rows
-        ];
-        $this->view('klanten_d3_saad/index', $data);
+    public function getbyid($id = null)
+    {
+        try {
+            $record = $this->klantModel->getKlantenById($id);
+            // var_dump($records);
+
+            $row = '';
+
+                $row .= "<tr>
+                        <td>$record->Voornaam</td>
+                        <td>$record->Tussenvoegsel</td>
+                        <td>$record->Achternaam</td>
+                        <td>$record->Geboortedatum</td>
+                        <td>$record->TypePersoon</td>
+                        <td>$record->Vertegenwoordiger</td>
+                        <td>$record->Straat</td>
+                        <td>$record->Huisnummer</td>
+                        <td>$record->Toevoeging</td>
+                        <td>$record->Postcode</td>
+                        <td>$record->Woonplaats</td>
+                        <td>$record->Email</td>
+                        <td>$record->Mobiel</td>
+                      </tr>";
+
+            $data = [
+                'title' => "Overzicht Klanten",
+                'row' => $row
+            ];
+            $this->view('klanten_d3_saad/getbyid', $data);
+        } catch(Exception $e) {
+            echo "Er is een fout opgetreden: " . $e->getMessage();
+            header("Refresh: 5; URL=" . URLROOT . "/klanten_d3_saad/index");
+        }
     }
 
     public function update($id = null) 
@@ -51,18 +91,30 @@ class Klanten_d3_saad extends Controller
              */
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-            $this->klantModel->updateVoedselpakket($_POST);
+            $this->klantModel->updateKlanten($_POST);
 
-            header("Location: " . URLROOT . "/voedselpakketten/index");
+            header("Location: " . URLROOT . "/klanten_d3_saad/index");
         }
 
-        $record = $this->klantModel->getVoedselpakketById($id);
+        $record = $this->klantModel->getKlantenById($id);
 
         $data = [
-            'title' => 'Update voedselpakket',
-            'id' => $record->id,
-            'aantal' => $record->aantal
+            'title' => 'Klant Details ',
+            'id' => $record->Id,
+            'voornaam' => $record->Voornaam,
+            'tussenvoegsel' => $record->Tussenvoegsel,
+            'achternaam' => $record->Achternaam,
+            'geboortedatum' => $record->Geboortedatum,
+            'typepersoon' => $record->TypePersoon,
+            'vertegenwoordiger' => $record->Vertegenwoordiger,
+            'straatnaam' => $record->Straatnaam,
+            'huisnummer' => $record->Huisnummer,
+            'toevoeging' => $record->Toevoeging,
+            'postcode' => $record->Postcode,
+            'woonplaats' => $record->Woonplaats,
+            'email' => $record->Email,
+            'mobiel' => $record->Mobiel,
         ]; 
-        $this->view('voedselpakketten/update', $data);
+        $this->view('klanten_d3_saad/update', $data);
     }
 }
