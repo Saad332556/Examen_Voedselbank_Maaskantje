@@ -50,7 +50,7 @@ class Voedselpakket
         $this->db->bind(':id', $id, PDO::PARAM_INT);
         return $this->db->resultSet();
     }
-
+ 
     public function updateStatus($data)
     {
         $this->db->query("UPDATE Voedselpakket

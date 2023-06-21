@@ -38,3 +38,4 @@
     <button type="button" class="btn btn-primary" onclick="window.location.href='<?= URLROOT ?>/voedselpakketten/index'">terug</button>
 <button type="button" class="btn btn-primary" onclick="window.location.href='<?= URLROOT ?>/landingpages/index'">home</button>
 </html>
+ 
