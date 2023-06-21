@@ -3,43 +3,41 @@
 class Klanten_d3_saad extends Controller
 {
     //properties
-    private $voedselpakketModel;
+    private $klantModel;
 
     // Dit is de constructor van de controller
     public function __construct() 
     {
-        $this->voedselpakketModel = $this->model('Klant_d3_saad');
+        $this->klantModel = $this->model('Klant_d3_saad');
     }
 
     public function index()
     {
-        $records = $this->voedselpakketModel->getVoedselpakketten();
-        //var_dump($records);
+        $records = $this->klantModel->getKlanten();
+        // var_dump($records);
 
         $rows = '';
 
         foreach ($records as $items)
         {
             $rows .= "<tr>
-                        <td>$items->aantal</td>
-                        <td>$items->naam</td>
-                        <td>$items->pakketnummer</td>
-                        <td>$items->datum_samenstelling</td>
-                        <td>$items->datum_uitgifte</td>
+                        <td>$items->Naam</td>
+                        <td>$items->IsVertegenwoordiger</td>
+                        <td>$items->Email</td>
+                        <td>$items->Mobiel</td>
+                        <td>$items->Adres</td>
+                        <td>$items->Woonplaats</td>
                         <td>
-                            <a href='" . URLROOT . "/voedselpakketten/update/$items->id'>update</a>
-                        </td>
-                        <td>
-                            <a href='" . URLROOT . "/voedselpakketten/delete/$items->id'>delete</a>
+                            <a href='" . URLROOT . "/klanten_3d_saad/update/$items->Id'>update</a>
                         </td>
                       </tr>";
         }
 
         $data = [
-            'title' => "Overzicht voedselpakketten",
+            'title' => "Overzicht Klanten",
             'rows' => $rows
         ];
-        $this->view('voedselpakketten/index', $data);
+        $this->view('klanten_d3_saad/index', $data);
     }
 
     public function update($id = null) 
@@ -53,12 +51,12 @@ class Klanten_d3_saad extends Controller
              */
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-            $this->voedselpakketModel->updateVoedselpakket($_POST);
+            $this->klantModel->updateVoedselpakket($_POST);
 
             header("Location: " . URLROOT . "/voedselpakketten/index");
         }
 
-        $record = $this->voedselpakketModel->getVoedselpakketById($id);
+        $record = $this->klantModel->getVoedselpakketById($id);
 
         $data = [
             'title' => 'Update voedselpakket',
@@ -66,39 +64,5 @@ class Klanten_d3_saad extends Controller
             'aantal' => $record->aantal
         ]; 
         $this->view('voedselpakketten/update', $data);
-    }
-
-    public function delete($id)
-    {
-        $result = $this->voedselpakketModel->deleteVoedselpakket($id);
-        if ($result) {
-            echo "Het record is met success verwijderd";
-            header("Refresh: 3; URL=" . URLROOT . "/voedselpakketten/index");
-        } else {
-            echo "Internal servererror, het record is niet verwijderd";
-        }
-    }
-
-    public function create()
-    {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // $_POST array schoonmaken
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-            $result = $this->voedselpakketModel->createVoedselpakket($_POST);
-
-            if ($result) {
-                echo "Het invoeren is gelukt";
-                header("Refresh:3; URL=" . URLROOT . "/voedselpakketten/index");
-            } else {
-                echo "Het invoeren is NIET gelukt";
-                header("Refresh:3; URL=" . URLROOT . "/voedselpakketten/index");
-            }
-        }
-
-        $data = [
-            'title' => 'Voeg een nieuw voedselpakket toe'
-        ];
-        $this->view('voedselpakketten/create', $data);
     }
 }

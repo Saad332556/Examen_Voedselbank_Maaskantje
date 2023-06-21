@@ -15,26 +15,29 @@ class Klant_d3_saad
         $this->db = new Database();
     }
 
-    public function getVoedselpakketten()
+    public function getKlanten()
     {
-        $this->db->query('SELECT Voedselpakket.id, Voedselpakket.pakketnummer, Voedselpakket.datum_samenstelling, Voedselpakket.datum_uitgifte, Product.aantal, Klant.naam 
-                            FROM Voedselpakket
-                            INNER JOIN Product ON Voedselpakket.id = Product.voedselpakket_id 
-                            INNER JOIN Klant ON Voedselpakket.klant_id = Klant.id');
+        $this->db->query('SELECT Persoon1.Id, Gezin1.Naam, Persoon1.IsVertegenwoordiger, Contact1.Email, Contact1.Mobiel, CONCAT(Contact1.Straat, " ",  Contact1.Huisnummer, " " , Contact1.Toevoeging) AS Adres, Contact1.Woonplaats 
+                            FROM ContactPerGezin1
+                            INNER JOIN Gezin1 ON ContactPerGezin1.GezinId = Gezin1.Id 
+                            INNER JOIN Persoon1 ON Persoon1.GezinId = Gezin1.Id
+                            INNER JOIN Contact1 ON ContactPerGezin1.ContactId = Contact1.Id');
         return $this->db->resultSet();
     }
 
-    public function getVoedselpakketById($id)
+    public function getKlantenById($id)
     {
-        $this->db->query("SELECT voedselpakket.id, aantal 
-                            FROM Product
-                            INNER JOIN Voedselpakket ON Voedselpakket.id = Product.voedselpakket_id 
-                            WHERE voedselpakket.id = :id");
+        $this->db->query('SELECT Gezin1.Id, Gezin1.Naam, Persoon1.IsVertegenwoordiger, Contact1.Email, Contact1.Mobiel, CONCAT(Contact1.Straat, " ",  Contact1.Huisnummer, " " , Contact1.Toevoeging) AS Adres, Contact1.Woonplaats 
+                          FROM Gezin1
+                          INNER JOIN Persoon1 ON Persoon1.GezinId = Gezin1.Id 
+                          INNER JOIN ContactPerGezin1 ON ContactPerGezin1.GezinId = Gezin1.id
+                          INNER JOIN Contact1 ON ContactPerGezin1.ContactId = Contact1.Id 
+                          WHERE Persoon1.Id = :id');
         $this->db->bind(':id', $id, PDO::PARAM_INT);
         return $this->db->single();
     }
 
-    public function updateVoedselpakket($data)
+    public function updateKlanten($data)
     {
         // var_dump($data);exit();
         $this->db->query("UPDATE Product
@@ -44,42 +47,6 @@ class Klant_d3_saad
         $this->db->bind(':id', $data['id'], PDO::PARAM_INT);
 
         return $this->db->execute();
-    }
-
-    public function deleteVoedselpakket($id)
-    {
-        $this->db->query("DELETE Voedselpakket, Product, Klant 
-                          FROM Voedselpakket 
-                          INNER JOIN Product ON Voedselpakket.id = Product.voedselpakket_id 
-                          INNER JOIN Klant ON Voedselpakket.klant_id = Klant.id 
-                          WHERE Voedselpakket.id = :id");
-        $this->db->bind(':id', $id, PDO::PARAM_INT);
-        return $this->db->execute();
-    }
-
-    public function createVoedselpakket($post)
-    {
-        $this->db->query("INSERT INTO Klant (naam) 
-                          VALUES (:naam)");
-
-        $this->db->bind(':naam', $post['naam'], PDO::PARAM_STR);
-        $this->db->execute();
-
-        $this->db->query("INSERT INTO Voedselpakket (klant_id, pakketnummer, datum_samenstelling, datum_uitgifte)
-                          VALUES (LAST_INSERT_ID(), :pakketnummer, :datum_samenstelling, :datum_uitgifte)");
-
-        $this->db->bind(':pakketnummer', $post['pakketnummer'], PDO::PARAM_INT);
-        $this->db->bind(':datum_samenstelling', $post['datum_samenstelling'], PDO::PARAM_STR);
-        $this->db->bind(':datum_uitgifte', $post['datum_uitgifte'], PDO::PARAM_STR);
-        $this->db->execute();
-
-        $this->db->query("INSERT INTO Product (voedselpakket_id, aantal) 
-                          VALUES (LAST_INSERT_ID(), :aantal)");
-
-        $this->db->bind(':aantal', $post['aantal'], PDO::PARAM_INT);
-        $this->db->execute();
-
-        return true;
     }
 
 }
