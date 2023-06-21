@@ -45,7 +45,7 @@ class Voedselpakketten extends Controller
     {
         $records = $this->voedselpakketModel->getVoedselpakketById($id);
         
-        //var_dump($records);
+        var_dump($records);
 
         $rows = '';
 
@@ -66,12 +66,23 @@ class Voedselpakketten extends Controller
 
         $data = [
             
-            'naam' => $voedselpakket->Naam,
-            'omschrijving' => $voedselpakket->Omschrijving,
-            'aantalVolwassenen' => $voedselpakket->AantalVolwassenen,
+            'naam' => $items->Naam,
+            'omschrijving' => $items->Omschrijving,
+            'aantalvolwassenen' => $items->TotaalAantalPersonen,
             'rows' => $rows
         ];
         $this->view('voedselpakketten/overzicht', $data);
+    }
+
+    public function wijzig($id)
+    {
+        $record = $this->voedselpakketModel->getVoedselpakketById($id);
+
+        $data = [
+            'title' => 'Wijzig voedselpakket',
+        ];
+
+        $this->view('voedselpakketten/wijzig', $data);
     }
 
     // public function update($id = null) 

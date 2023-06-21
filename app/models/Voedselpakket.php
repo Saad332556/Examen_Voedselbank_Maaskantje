@@ -40,11 +40,28 @@ class Voedselpakket
 
     public function getVoedselpakketById($id)
     {
-        $this->db->query("SELECT Voedselpakket.id, Voedselpakket.PakketNummer, Voedselpakket.DatumSamenstelling, Voedselpakket.DatumUitgifte, Voedselpakket.Status
-                            FROM Voedselpakket where Voedselpakket.id = :id");
-        $this->db->bind(':id', $id);
-        return $this->db->single();
+        $this->db->query("SELECT Gezin.id, Gezin.Naam,Gezin.Omschrijving, 
+        Gezin.TotaalAantalPersonen,Voedselpakket.PakketNummer,
+        Voedselpakket.DatumSamenstelling, Voedselpakket.DatumUitgifte, Voedselpakket.Status, 
+        ProductPerVoedselpakket.AantalProductEenheden
+        FROM Gezin inner join Voedselpakket on Gezin.id = Voedselpakket.GezinId
+        inner join ProductPerVoedselpakket on Voedselpakket.id = ProductPerVoedselpakket.VoedselpakketId
+        WHERE Gezin.id = :id");
+        $this->db->bind(':id', $id, PDO::PARAM_INT);
+        return $this->db->resultSet();
     }
+
+    public function updateStatus($data)
+    {
+        $this->db->query("UPDATE Voedselpakket
+                          SET Status = :status
+                          WHERE id = :id");
+        $this->db->bind(':status', $data['status'], PDO::PARAM_STR);
+        $this->db->bind(':id', $data['id'], PDO::PARAM_INT);
+
+        return $this->db->execute();
+    }
+  
 
     // public function updateVoedselpakket($data)
     // {

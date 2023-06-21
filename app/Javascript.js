@@ -1,0 +1,1 @@
+const mySelect = document.getElementById('mySelect');
