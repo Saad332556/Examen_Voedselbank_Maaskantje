@@ -22,13 +22,13 @@ class Klanten_d3_saad extends Controller
         {
             $rows .= "<tr>
                         <td>$items->Naam</td>
-                        <td>$items->IsVertegenwoordiger</td>
+                        <td>$items->Vertegenwoordiger</td>
                         <td>$items->Email</td>
                         <td>$items->Mobiel</td>
                         <td>$items->Adres</td>
                         <td>$items->Woonplaats</td>
                         <td>
-                            <a href='" . URLROOT . "/klanten_3d_saad/update/$items->Id'>update</a>
+                            <a href='" . URLROOT . "/klanten_3d_saad/update/$items->Id'><img src='../public/img/book.png' width='20' height='20'></a>
                         </td>
                       </tr>";
         }

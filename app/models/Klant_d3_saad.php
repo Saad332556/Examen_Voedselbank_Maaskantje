@@ -17,7 +17,7 @@ class Klant_d3_saad
 
     public function getKlanten()
     {
-        $this->db->query('SELECT Persoon1.Id, Gezin1.Naam, Persoon1.IsVertegenwoordiger, Contact1.Email, Contact1.Mobiel, CONCAT(Contact1.Straat, " ",  Contact1.Huisnummer, " " , Contact1.Toevoeging) AS Adres, Contact1.Woonplaats 
+        $this->db->query('SELECT Persoon1.Id, Gezin1.Naam, CASE WHEN IsVertegenwoordiger = 1 THEN "Ja" WHEN IsVertegenwoordiger = 0 THEN "Nee" END AS Vertegenwoordiger, Contact1.Postcode, Contact1.Email, Contact1.Mobiel,  CONCAT(Straat, " ", Huisnummer, IF(Toevoeging != " ", CONCAT(" " , Toevoeging), " ")) AS Adres, Contact1.Woonplaats 
                             FROM ContactPerGezin1
                             INNER JOIN Gezin1 ON ContactPerGezin1.GezinId = Gezin1.Id 
                             INNER JOIN Persoon1 ON Persoon1.GezinId = Gezin1.Id
