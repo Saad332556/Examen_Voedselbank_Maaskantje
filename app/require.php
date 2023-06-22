@@ -1,3 +1,4 @@
+
 <?php
     // Require libraries from folder libraries
     require_once 'Config/Config.php';
@@ -14,4 +15,3 @@
 
     // Instantiate core class
     $init = new Core();
-?>
