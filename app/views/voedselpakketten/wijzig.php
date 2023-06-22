@@ -14,7 +14,7 @@
             </span>
 
 
-            <form action="<?= URLROOT ?>/voedselpakketten/update/<?= $id ?>" method="post">
+            <form action="<?= URLROOT ?>/voedselpakketten/update/<?= $data['id'] ?>" method="post">
                 <!-- Hidden input id -->
                 <input type="hidden" name="id" value="<?= $data["id"] ?>">
                 <!-- Table with Bootstrap classes -->
@@ -31,10 +31,10 @@
                 <button type="button" class="btn btn-primary" onclick="window.location.href='<?= URLROOT ?>/landingpages/index'">home</button>
             </form>
 
-            <!-- If success is dan toon je die -->
-            <?php if (isset($data['success'])) : ?>
+            <!-- If baljeed is dan toon je die -->
+            <?php if (isset($data['baljeed'])) : ?>
                 <div class="alert" role="alert">
-                    <?= $data['success'] ?>
+                    <?= $data['baljeed'] ?>
                 </div>
             <?php endif; ?>
 

@@ -42,6 +42,7 @@ class Voedselpakketten extends Controller
                 'rows' => $rows
             ];
 
+
             // Check of de records array leeg is, zo ja dan is er geen resultaat gevonden en toon een melding
             if (empty($records)) {
                 $data = [
@@ -148,10 +149,11 @@ class Voedselpakketten extends Controller
                 $data = [
                     'id' => $id,
                     'status' => $_POST['status'],
-                    'success' => "<tr><td colspan='2'><div class='alert alert-success' role='alert'>De wijziging is doorgevoerd</div></td></tr>"
+                    'baljeed' => "<tr><td colspan='2'><div class='alert alert-success' role='alert'>De status is met success gewijzigd</div></td></tr>"
                 ];
+                
             } else {
-                $data['alert'] = "<tr><td colspan='2'><div class='alert alert-danger' role='alert'>Dit gezin is niet meer ingeschreven bij de voedselbank en daarom kan er geen voedselpakket worden uitgereikt</div></td></tr>";
+                $data['alert'] = "<tr><td colspan='2'><div class='alert alert-danger' role='alert'>Er is iets foutgegaan tijdens het opslaan van de data! OMFG</div></td></tr>";
             }
 
             $this->view('voedselpakketten/wijzig', $data);
@@ -159,38 +161,4 @@ class Voedselpakketten extends Controller
             echo "Er is iets fout gegaan, hoe ben je hier nou beland?";
         }
     }
-
-    // public function delete($id)
-    // {
-    //     $result = $this->voedselpakketModel->deleteVoedselpakket($id);
-    //     if ($result) {
-    //         echo "Het record is met success verwijderd";
-    //         header("Refresh: 3; URL=" . URLROOT . "/voedselpakketten/index");
-    //     } else {
-    //         echo "Internal servererror, het record is niet verwijderd";
-    //     }
-    // }
-
-    // public function create()
-    // {
-    //     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    //         // $_POST array schoonmaken
-    //         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-    //         $result = $this->voedselpakketModel->createVoedselpakket($_POST);
-
-    //         if ($result) {
-    //             echo "Het invoeren is gelukt";
-    //             header("Refresh:3; URL=" . URLROOT . "/voedselpakketten/index");
-    //         } else {
-    //             echo "Het invoeren is NIET gelukt";
-    //             header("Refresh:3; URL=" . URLROOT . "/voedselpakketten/index");
-    //         }
-    //     }
-
-    //     $data = [
-    //         'title' => 'Voeg een nieuw voedselpakket toe'
-    //     ];
-    //     $this->view('voedselpakketten/create', $data);
-    // }
 }
