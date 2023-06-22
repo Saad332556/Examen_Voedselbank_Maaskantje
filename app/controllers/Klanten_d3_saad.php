@@ -43,11 +43,11 @@ class Klanten_d3_saad extends Controller
                 'rows' => $rows
             ];
 
-             // Check of de records array leeg is, zo ja dan is er geen resultaat gevonden en toon een melding
-             if (empty($records)) {
-                $data = [
-                    // Bootstrap geel/primary alert with "Er zijn geen klanten bekent die de geselecteerde postcode hebben"
-                    'rows' => "<tr><td colspan='8'><div class='alert alert-warning' role='alert'>Er zijn geen klanten bekent die de geselecteerde postcode hebben</div></td></tr>"
+                // Check of de records array leeg is, zo ja dan is er geen resultaat gevonden en toon een melding
+                if (empty($records)) {
+                    $data = [
+                        // Bootstrap geel/primary alert with "Er zijn geen klanten bekent die de geselecteerde postcode hebben"
+                        'rows' => "<tr><td colspan='8'><div class='alert alert-warning' role='alert'>Er zijn geen klanten bekent die de geselecteerde postcode hebben</div></td></tr>"
                 ];
             }
 
@@ -114,14 +114,13 @@ class Klanten_d3_saad extends Controller
 
     public function update($id = null) 
     {
-        try {
-            /**
-             * Controleer of er gepost wordt vanuit de view update.php
-             */
+            
+            // Controleer of er gepost wordt vanuit de view update.php
+             
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                /**
-                 * Maak het $_POST array schoon
-                 */
+                
+                // Maak het $_POST array schoon
+                 
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
                 $this->klantModel->updateKlanten($_POST);
@@ -130,10 +129,10 @@ class Klanten_d3_saad extends Controller
             }
 
             $record = $this->klantModel->getKlantenById($id);
+            var_dump($record);
 
             $data = [
-                'title' => 'Klant Details ',
-                'id' => $record->Id,
+                'title' => 'Wijzig Klant Details ',
                 'voornaam' => $record->Voornaam,
                 'tussenvoegsel' => $record->Tussenvoegsel,
                 'achternaam' => $record->Achternaam,
@@ -149,9 +148,6 @@ class Klanten_d3_saad extends Controller
                 'mobiel' => $record->Mobiel,
             ]; 
             $this->view('klanten_d3_saad/update', $data);
-        } catch(Exception $e) {
-            echo "Er is een fout opgetreden: " . $e->getMessage();
-            header("Refresh: 5; URL=" . URLROOT . "/klanten_d3_saad/getbyid");
-        }
+            
     }
 }
