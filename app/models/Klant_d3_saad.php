@@ -27,7 +27,7 @@ class Klant_d3_saad
 
     public function getKlantenById($id)
     {
-        $this->db->query('SELECT DISTINCT Persoon1.Voornaam, Persoon1.Tussenvoegsel, Persoon1.Achternaam, 
+        $this->db->query('SELECT DISTINCT Persoon1.Id, Persoon1.Voornaam, Persoon1.Tussenvoegsel, Persoon1.Achternaam, 
                                  Persoon1.Geboortedatum, Persoon1.TypePersoon, 
                                  CASE WHEN Persoon1.IsVertegenwoordiger = 1 THEN "Ja" WHEN Persoon1.IsVertegenwoordiger = 0 THEN "Nee" END AS Vertegenwoordiger,  
                                  Contact1.Straat, Contact1.Huisnummer, Contact1.Toevoeging, 
