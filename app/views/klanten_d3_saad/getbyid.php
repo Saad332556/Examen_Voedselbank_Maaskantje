@@ -7,13 +7,14 @@
     <link rel="stylesheet" href="../public/css/style.css">
   </head>
   <body>
-  <h3 style="margin-left: 1rem;">
+  <h3 style="margin-left: 1rem; color: green; text-decoration: underline;">
     <?= $data['title']; ?>
     <?= $data['voornaam']; ?>
     <?php if (!empty($data['tussenvoegsel'])) echo $data['tussenvoegsel'] . ' '; ?>
     <?= $data['achternaam']; ?>
 </h3>
-
+    <div>
+    <!-- Table with Bootstrap classes -->
     <table style="margin-left: 1rem;">
         <tbody>
             <tr>
@@ -70,10 +71,12 @@
             </tr>
             <tr>
                 <td><input type="hidden" name="id" id="id" value="<?= $data['id']; ?>"></td>
-                <td><input type="submit" name="submit" id="submit" value="Bewerken"></td>
             </tr>
         </tbody>
     </table>
+            <a href="<?= URLROOT; ?>/klanten_d3_saad/update"><button style="float: left; margin-left: 1rem; margin-top: 1rem;" type="button" class="btn btn-primary">Wijzig</button></a>
+            <a href="<?= URLROOT; ?>/landingpages/index"><button style="float: right; margin-right: 1rem; margin-top: 1rem;" type="button" class="btn btn-primary">Home</button></a>
+            <a href="<?= URLROOT; ?>/klanten_d3_saad/index/<?= $data['id']; ?>"><button style="float: right; margin-right: 1rem; margin-top: 1rem;" type="button" class="btn btn-primary">Terug</button></a>
     <!-- End table with Bootstrap classes -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     </body>

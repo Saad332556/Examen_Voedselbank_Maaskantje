@@ -25,6 +25,18 @@ class Klant_d3_saad
         return $this->db->resultSet();
     }
 
+    public function getGefilterdePostcodes($postcode)
+    {
+      // Nu wil ik filteren op postcode dus hebben we ook Contact1 nodig en het Postcode is dan Contact1.Postcode
+      $this->db->query('SELECT Persoon1.Id, Gezin1.Naam, CASE WHEN IsVertegenwoordiger = 1 THEN "Ja" WHEN IsVertegenwoordiger = 0 THEN "Nee" END AS Vertegenwoordiger, Contact1.Postcode, Contact1.Email, Contact1.Mobiel, CONCAT(Straat, " ", Huisnummer, IF(Toevoeging != " ", CONCAT(" " , Toevoeging), " ")) AS Adres, Contact1.Woonplaats 
+                      FROM ContactPerGezin1
+                      INNER JOIN Gezin1 ON ContactPerGezin1.GezinId = Gezin1.Id 
+                      INNER JOIN Persoon1 ON Persoon1.GezinId = Gezin1.Id
+                      INNER JOIN Contact1 ON ContactPerGezin1.ContactId = Contact1.Id
+                      WHERE Contact1.Postcode = :postcode');
+    $this->db->bind(':postcode', $postcode, PDO::PARAM_STR);
+    return $this->db->resultSet();
+    }
     public function getKlantenById($id)
     {
         $this->db->query('SELECT DISTINCT Persoon1.Id, Persoon1.Voornaam, Persoon1.Tussenvoegsel, Persoon1.Achternaam, 

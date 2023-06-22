@@ -13,7 +13,48 @@ class Klanten_d3_saad extends Controller
 
     public function index()
     {
-        try {
+        // Check post type als het POST is dan is er een formulier verstuurd (filteren)
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            // Haal de filter optie uit de post data en selecteer nu de juiste records uit de database
+            $records = $this->klantModel->getGefilterdePostcodes($_POST['postcode']);
+            // var_dump($records);
+
+            $rows = '';
+
+            foreach ($records as $items)
+            {
+                $rows .= "<tr>
+                            <td>$items->Naam</td>
+                            <td>$items->Vertegenwoordiger</td>
+                            <td>$items->Email</td>
+                            <td>$items->Mobiel</td>
+                            <td>$items->Adres</td>
+                            <td>$items->Woonplaats</td>
+                            <td>
+                                <a href='" . URLROOT . "/klanten_d3_saad/getbyid/$items->Id'><img src='../public/img/book.png' width='20' height='20'></a>
+                            </td>
+                        </tr>";
+            }
+
+            $data = [
+                'rows' => $rows
+            ];
+
+             // Check of de records array leeg is, zo ja dan is er geen resultaat gevonden en toon een melding
+             if (empty($records)) {
+                $data = [
+                    // Bootstrap geel/primary alert with "Er zijn geen klanten bekent die de geselecteerde postcode hebben"
+                    'rows' => "<tr><td colspan='8'><div class='alert alert-warning' role='alert'>Er zijn geen klanten bekent die de geselecteerde postcode hebben</div></td></tr>"
+                ];
+            }
+
+            $this->view('klanten_d3_saad/index', $data);
+
+        } else {
+
             $records = $this->klantModel->getKlanten();
             // var_dump($records);
 
@@ -35,13 +76,10 @@ class Klanten_d3_saad extends Controller
             }
 
             $data = [
-                'title' => "Overzicht Klanten",
                 'rows' => $rows
             ];
+
             $this->view('klanten_d3_saad/index', $data);
-        } catch(Exception $e) {
-            echo "Er is een fout opgetreden: " . $e->getMessage();
-            header("Refresh: 5; URL=" . URLROOT . "/klanten_d3_saad/index");
         }
     }
 

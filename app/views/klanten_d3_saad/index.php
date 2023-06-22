@@ -7,18 +7,17 @@
     <link rel="stylesheet" href="../public/css/style.css">
   </head>
   <body>
-  <h3 style="margin-left: 1rem;"><?= $data['title'] ?></h3>
-   <div style="float:right;">
-    <select name="postcode" id="postcode">
-	    <option value="">Selecteer Postcode</option>
-	    <option value="5271TH">5271TH</option>
-	    <option value="5271ZE">5271ZE</option>
-	    <option value="5271TJ">5271TJ</option>
+  <h3 style="margin-right: 1rem; color: green; text-decoration: underline;">Overzicht Klanten</h3>
+   <form action="<?= URLROOT ?>/klanten_d3_saad/index" method="post" style="float: right;">
+    <select style="margin-right: 1rem;" aria-label="Default select example" name="postcode">
+      <option selected>Selecteer Postcode</option>
+      <option value="5271TH">5271TH</option>
+      <option value="5271ZE">5271ZE</option>
+      <option value="5271TJ">5271TJ</option>
       <option value="5271ZH">5271ZH</option>
     </select>
-    <br>
-    <button type="submit">Toon klanten</button>
-   </div>
+    <button style="margin-right: 1rem;" type="submit" class="btn btn-secondary">Toon Klanten</button>
+  </form>
     <!-- Table with Bootstrap classes -->
     <table class="table table-bordered table-white" style="margin: 1rem;">
       <thead>
@@ -38,6 +37,6 @@
     </table>
     <!-- End table with Bootstrap classes -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-    <p><a href="<?= URLROOT; ?>/landingpages/index">back to homepage</a></p>
+    <a href="<?= URLROOT; ?>/landingpages/index"><button style="float: right; margin-right: 1rem; margin-bottom: 1rem;" type="button" class="btn btn-primary">Home</button></a>
   </body>
 </html>
